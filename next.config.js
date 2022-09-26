@@ -7,6 +7,7 @@ if (!process.env.WORDPRESS_API_URL) {
 
 /** @type {import('next').NextConfig} */
 module.exports = {
+  swcMinify: true,
   reactStrictMode: true,
   images: {
     domains: [
