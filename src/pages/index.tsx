@@ -1,15 +1,21 @@
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { CustomLayout, GetStaticProps,CustomNextPage } from "next";
 import Container from "src/components/container";
 import MoreStories from "src/components/more-stories";
 import HeroPost from "src/components/hero-post";
 import Intro from "src/components/intro";
 import Layout from "src/components/layout";
+import { Layout as LayoutCustom } from "src/layouts";
 import { getAllPostsForHome } from "src/lib/api";
 import { CMS_NAME } from "src/lib/constants";
 import { Button } from "@mantine/core";
 
-export default function Index({ allPosts: { edges }, preview }) {
+type Posts = {
+  allPosts:any;
+  preview: any;
+}
+
+const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
   const heroPost = edges[0]?.node;
   const morePosts = edges.slice(1);
 
@@ -35,7 +41,7 @@ export default function Index({ allPosts: { edges }, preview }) {
       </Container>
     </Layout>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview);
@@ -45,3 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     revalidate: 10,
   };
 };
+
+Home.getLayout = (page) => <LayoutCustom>{page}</LayoutCustom>;
+
+export default Home;

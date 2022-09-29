@@ -3,14 +3,17 @@ import {
   ColorSchemeProvider,
   ColorScheme,
 } from "@mantine/core";
-import { AppProps } from "next/app";
+import { CustomAppPage } from "next/app";
 import { useState } from "react";
+import { useLoading } from "src/hooks/useLoading";
 import "src/styles/index.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: CustomAppPage = ({ Component, pageProps }) => {
+  const { pageLoading, loadingComponent } = useLoading();
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+  const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -21,10 +24,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Component {...pageProps} />
+        {pageLoading
+          ? loadingComponent
+          : getLayout(<Component {...pageProps} />)}
       </MantineProvider>
     </ColorSchemeProvider>
   );
-}
+};
 
 export default MyApp;
