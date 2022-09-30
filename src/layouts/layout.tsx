@@ -19,7 +19,7 @@ export const Layout: CustomLayout = (props) => {
   return (
     <>
       <Head>
-        <title>Portfolio</title>
+        <title>Ocean Script</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderComponent links={links} />

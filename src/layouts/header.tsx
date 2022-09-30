@@ -8,7 +8,8 @@ import {
   Container,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Battery4, ChevronDown } from "tabler-icons-react";
+import Link from "next/link";
+import { ChevronDown } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -115,7 +116,13 @@ export const HeaderComponent = ({ links }: HeaderSearchProps) => {
     <Header height={56} className={classes.header} mb={120}>
       <Container>
         <div className={classes.inner}>
-          <Battery4 size={28}  />
+          <div>
+            <Link href="/">
+              <a>
+                <h1 className="white">Ocean Script</h1>
+              </a>
+            </Link>
+          </div>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
