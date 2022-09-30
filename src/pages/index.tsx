@@ -26,7 +26,6 @@ const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
       </Head>
       <Container>
         <Intro />
-        <Button>Settings</Button>
         {heroPost && (
           <HeroPost
             title={heroPost.title}
