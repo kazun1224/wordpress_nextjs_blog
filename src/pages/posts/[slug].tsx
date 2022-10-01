@@ -5,10 +5,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Container from "src/components/container";
 import PostBody from "src/components/post-body";
 import MoreStories from "src/components/more-stories";
-import Header from "src/components/header";
 import PostHeader from "src/components/post-header";
-import SectionSeparator from "src/components/section-separator";
-import Layout from "src/components/layout";
 import PostTitle from "src/components/post-title";
 import Tags from "src/components/tags";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "src/lib/api";
@@ -23,9 +20,8 @@ export default function Post({ post, posts, preview }) {
   }
 
   return (
-    <Layout preview={preview}>
+    <>
       <Container>
-        <Header />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
@@ -53,12 +49,11 @@ export default function Post({ post, posts, preview }) {
               </footer>
             </article>
 
-            <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />}
           </>
         )}
       </Container>
-    </Layout>
+    </>
   );
 }
 
