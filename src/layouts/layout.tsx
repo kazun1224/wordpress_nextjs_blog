@@ -2,6 +2,7 @@ import { HeaderComponent } from "src/layouts/header";
 import { FooterComponent } from "src/layouts/footer";
 import { CustomLayout } from "next";
 import Head from "next/head";
+import { Meta } from "src/layouts/meta";
 
 export const Layout: CustomLayout = (props) => {
   const links = [
@@ -21,6 +22,7 @@ export const Layout: CustomLayout = (props) => {
       <Head>
         <title>Ocean Script</title>
         <link rel="icon" href="/favicon.ico" />
+        <Meta/>
       </Head>
       <HeaderComponent links={links} />
       <main className="py-20 md:py-32">{props.children}</main>
