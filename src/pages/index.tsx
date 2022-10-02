@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { GetStaticProps,CustomNextPage } from "next";
-import Container from "src/components/container";
+import { Container } from '@mantine/core';
 import MoreStories from "src/components/more-stories";
 import HeroPost from "src/components/hero-post";
 import { Layout as LayoutCustom } from "src/layouts";

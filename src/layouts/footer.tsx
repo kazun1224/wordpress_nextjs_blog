@@ -5,10 +5,10 @@ import {
   BrandYoutube,
   BrandTwitter,
 } from "tabler-icons-react";
+import { FC } from "react";
 
 const useStyles = createStyles((theme) => ({
   footer: {
-    marginTop: 120,
     borderTop: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const FooterComponent = () => {
+export const FooterComponent: FC = () => {
   const { classes } = useStyles();
 
   return (

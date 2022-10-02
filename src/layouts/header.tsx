@@ -4,12 +4,12 @@ import {
   Menu,
   Group,
   Center,
-  Burger,
   Container,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
+import { NAV_ITEMS } from "src/utils/nav";
 import { ChevronDown } from "tabler-icons-react";
+import { FC } from "react";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -63,19 +63,10 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderSearchProps {
-  links: {
-    link: string;
-    label: string;
-    links: { link: string; label: string }[];
-  }[];
-}
-
-export const HeaderComponent = ({ links }: HeaderSearchProps) => {
-  const [opened, { toggle }] = useDisclosure(false);
+export const HeaderComponent: FC = () => {
   const { classes } = useStyles();
 
-  const items = links.map((link) => {
+  const items = NAV_ITEMS.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
     ));
@@ -84,16 +75,14 @@ export const HeaderComponent = ({ links }: HeaderSearchProps) => {
       return (
         <Menu key={link.label} trigger="hover" exitTransitionDuration={0}>
           <Menu.Target>
-            <a
-              href={link.link}
-              className={classes.link}
-              onClick={(event) => event.preventDefault()}
-            >
-              <Center>
-                <span className={classes.linkLabel}>{link.label}</span>
-                <ChevronDown size={12} strokeWidth={1.5} />
-              </Center>
-            </a>
+            <Link href={link.link}>
+              <a className={classes.link}>
+                <Center>
+                  <span className={classes.linkLabel}>{link.label}</span>
+                  <ChevronDown size={12} strokeWidth={1.5} />
+                </Center>
+              </a>
+            </Link>
           </Menu.Target>
           <Menu.Dropdown>{menuItems}</Menu.Dropdown>
         </Menu>
@@ -101,38 +90,26 @@ export const HeaderComponent = ({ links }: HeaderSearchProps) => {
     }
 
     return (
-      <a
-        key={link.label}
-        href={link.link}
-        className={classes.link}
-        onClick={(event) => event.preventDefault()}
-      >
-        {link.label}
-      </a>
+      <Link href={link.link} key={link.label}>
+        <a className={classes.link}>{link.label}</a>
+      </Link>
     );
   });
 
   return (
-    <Header height={56} className={classes.header} mb={120}>
+    <Header height={56} className={classes.header}>
       <Container>
         <div className={classes.inner}>
           <div>
             <Link href="/">
               <a>
-                <h1 className="white">Ocean Script</h1>
+                <h2 className="text-white">Ocean Script</h2>
               </a>
             </Link>
           </div>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
-          <Burger
-            opened={opened}
-            onClick={toggle}
-            className={classes.burger}
-            size="sm"
-            color="#fff"
-          />
         </div>
       </Container>
     </Header>
