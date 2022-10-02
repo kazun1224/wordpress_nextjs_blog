@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Container from "src/components/container";
+import { Container } from '@mantine/core';
 import PostBody from "src/components/post-body";
 import MoreStories from "src/components/more-stories";
 import PostHeader from "src/components/post-header";

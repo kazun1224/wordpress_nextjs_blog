@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { GetStaticProps,CustomNextPage } from "next";
+import { GetStaticProps,CustomNextPage, GetServerSideProps } from "next";
 import { Container } from '@mantine/core';
 import MoreStories from "src/components/more-stories";
 import HeroPost from "src/components/hero-post";
@@ -11,7 +11,7 @@ type Posts = {
   preview: any;
 }
 
-const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
+const Articles: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
   const heroPost = edges[0]?.node;
   const morePosts = edges.slice(1);
 
@@ -37,7 +37,7 @@ const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+export const getStaticProps: GetStaticProps  = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview);
 
   return {
@@ -46,6 +46,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   };
 };
 
-Home.getLayout = (page) => <LayoutCustom>{page}</LayoutCustom>;
+Articles.getLayout = (page) => <LayoutCustom>{page}</LayoutCustom>;
 
-export default Home;
+export default Articles;

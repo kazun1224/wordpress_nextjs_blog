@@ -3,30 +3,22 @@ import { FooterComponent } from "src/layouts/footer";
 import { CustomLayout } from "next";
 import Head from "next/head";
 import { Meta } from "src/layouts/meta";
+import { MobileNav } from "src/layouts/mobile-nav";
+import { useMediaQuery } from "@mantine/hooks";
 
 export const Layout: CustomLayout = (props) => {
-  const links = [
-    {
-      link: "/",
-      label: "Home",
-      links: [
-        {
-          link: "",
-          label: "",
-        },
-      ],
-    },
-  ];
+  const media = useMediaQuery("max-width: 700px)");
+
   return (
     <>
       <Head>
-        <title>Ocean Script</title>
-        <link rel="icon" href="/favicon.ico" />
-        <Meta/>
+        <Meta />
       </Head>
-      <HeaderComponent links={links} />
+      <div className="relative"></div>
+      <HeaderComponent />
       <main className="py-20 md:py-32">{props.children}</main>
       <FooterComponent />
+      {media ? <MobileNav /> : undefined}
     </>
   );
 };
