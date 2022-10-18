@@ -1,17 +1,28 @@
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import Head from "next/head";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { Container } from '@mantine/core';
-import PostBody from "src/components/post-body";
-import MoreStories from "src/components/more-stories";
-import PostHeader from "src/components/post-header";
+import { CustomNextPage, GetStaticPaths, GetStaticProps } from "next";
+import {
+  Container,
+  Image,
+  Title,
+  TypographyStylesProvider,
+} from "@mantine/core";
+
 import PostTitle from "src/components/post-title";
-import Tags from "src/components/tags";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "src/lib/api";
 import { CMS_NAME } from "src/lib/constants";
+import { parseISO, format } from "date-fns";
+import { BlogCard } from "src/components/elements/BlogCard";
+import { Layout as LayoutCustom } from "src/layouts";
 
-export default function Post({ post, posts, preview }) {
+type PostProps = {
+  post: any;
+  posts: any;
+  preview: any;
+};
+
+const Post: CustomNextPage<PostProps> = ({ post, posts, preview }) => {
   const router = useRouter();
   const morePosts = posts?.edges;
 
@@ -20,42 +31,52 @@ export default function Post({ post, posts, preview }) {
   }
 
   return (
-    <>
-      <Container>
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article>
-              <Head>
-                <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
-                </title>
-                <meta
-                  property="og:image"
-                  content={post.featuredImage?.sourceUrl}
-                />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.featuredImage}
-                date={post.date}
-                author={post.author}
-                categories={post.categories}
+    <Container>
+      {router.isFallback ? (
+        <PostTitle>Loading…</PostTitle>
+      ) : (
+        <>
+          <article>
+            <Head>
+              <title>
+                {post.title} | Next.js Blog Example with {CMS_NAME}
+              </title>
+              <meta
+                property="og:image"
+                content={post.featuredImage?.sourceUrl}
               />
-              <PostBody content={post.content} />
-              <footer>
-                {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-              </footer>
-            </article>
-
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-          </>
-        )}
-      </Container>
-    </>
+            </Head>
+            <Title order={1}>This is h1 title</Title>
+            <time dateTime={post.date}>
+              {format(parseISO(post.date), "LLLL	d, yyyy")}
+            </time>
+            {post.tags.edges.length > 0 && (
+              <div className="mx-auto max-w-2xl">
+                <p className="mt-8 text-lg font-bold">
+                  Tagged
+                  {post.tags.edges.map((tag, index) => (
+                    <span key={index} className="ml-4 font-normal">
+                      {tag.node.name}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            )}
+            <Image
+              height={80}
+              src={post.featuredImage.node.souresUrl}
+              alt={`Cover Image for ${post.title}`}
+            />
+            <TypographyStylesProvider>
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            </TypographyStylesProvider>
+          </article>
+          <BlogCard posts={morePosts} />
+        </>
+      )}
+    </Container>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async ({
   params,
@@ -82,3 +103,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: true,
   };
 };
+
+Post.getLayout = (page) => <LayoutCustom>{page}</LayoutCustom>;
+
+export default Post;
