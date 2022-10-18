@@ -9,7 +9,6 @@ import {
 } from "@mantine/core";
 import { parseISO, format } from "date-fns";
 
-
 export const TopHost = ({ title, coverImage, date, excerpt, author, slug }) => {
   // author
   const isAuthorHaveFullName =
@@ -18,9 +17,8 @@ export const TopHost = ({ title, coverImage, date, excerpt, author, slug }) => {
     ? `${author.node.firstName} ${author.node.lastName}`
     : author.node.name || null;
 
-    // date
+  // date
   const datetext = parseISO(date);
-
 
   return (
     <Grid className="mt-10">
@@ -41,7 +39,7 @@ export const TopHost = ({ title, coverImage, date, excerpt, author, slug }) => {
             {excerpt}
           </Text>
           <Container>
-            <Avatar src={author.node.avatar.url} alt={name} />
+            <Avatar radius="xl" src={author.node.avatar.url} alt={name} />
             <div className="text-xl font-bold">{name}</div>
             <time dateTime={date}>{format(datetext, "LLLL	d, yyyy")}</time>
           </Container>

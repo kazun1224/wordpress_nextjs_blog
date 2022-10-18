@@ -1,15 +1,16 @@
 import Head from "next/head";
-import { GetStaticProps,CustomNextPage } from "next";
-import { Container } from '@mantine/core';
-import MoreStories from "src/components/more-stories";
+import { GetStaticProps, CustomNextPage } from "next";
+import { Container, Pagination } from "@mantine/core";
 import { Layout as LayoutCustom } from "src/layouts";
 import { getAllPostsForHome } from "src/lib/api";
 import { TopHost } from "src/components/elements/TopPost";
+import { BlogCard } from "src/components/elements/BlogCard";
+import { HeroHeader } from "src/components/elements/HeroHeader";
 
 type Posts = {
-  allPosts:any;
+  allPosts: any;
   preview: any;
-}
+};
 
 const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
   const heroPost = edges[0]?.node;
@@ -21,6 +22,7 @@ const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
         <title>Ocean Script</title>
       </Head>
       <Container>
+        <HeroHeader />
         {heroPost && (
           <TopHost
             title={heroPost.title}
@@ -31,7 +33,8 @@ const Home: CustomNextPage<Posts> = ({ allPosts: { edges }, preview }) => {
             excerpt={heroPost.excerpt}
           />
         )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        {morePosts.length > 0 && <BlogCard posts={morePosts} />}
+        <Pagination total={20} boundaries={2} initialPage={10} />
       </Container>
     </>
   );
