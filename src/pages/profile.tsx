@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { CustomNextPage } from "next";
-import { Container } from '@mantine/core';
+import { Container } from "@mantine/core";
 import { Layout as LayoutCustom } from "src/layouts";
 
 const Profile: CustomNextPage = () => {
