@@ -7,8 +7,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.0",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
+    "@graphql-codegen/cli": "^2.13.7",
     "@mantine/core": "^5.4.1",
     "@mantine/form": "^5.4.2",
     "@mantine/hooks": "^5.4.1",
@@ -21,6 +23,7 @@
     "eslint": "^8.24.0",
     "eslint-config-next": "^12.3.1",
     "eslint-config-prettier": "^8.5.0",
+    "graphql": "^16.6.0",
     "next": "latest",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
