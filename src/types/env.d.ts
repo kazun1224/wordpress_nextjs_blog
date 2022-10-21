@@ -1,5 +1,5 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    readonly WORDPRESS_API_URL: string;
+    readonly NEXT_PUBLIC_WORDPRESS_API_URL: string;
   }
 }
