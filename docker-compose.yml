@@ -39,6 +39,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/usr/src/app
+      - /usr/src/app/node_modules
     stdin_open: true
     tty: true
     ports:
